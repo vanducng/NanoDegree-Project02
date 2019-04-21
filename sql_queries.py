@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS music_log_by_session_and_user
 
 user_log_by_song_create = """
 CREATE TABLE IF NOT EXISTS user_log_by_song
- (song_title text, artist text, user_first_name text, user_last_name text, PRIMARY KEY(song_title, artist));
+ (song_title text, user_id int, user_first_name text, user_last_name text, PRIMARY KEY(song_title, user_id));
 """
 
 # INSERT DATA
@@ -33,18 +33,18 @@ INSERT INTO music_log_by_session_and_user(session_id, user_id, item_in_session, 
 """
 
 user_log_by_song_insert = """
-INSERT INTO user_log_by_song(song_title, artist, user_first_name, user_last_name)
+INSERT INTO user_log_by_song(song_title, user_id, user_first_name, user_last_name)
  VALUES(%s, %s, %s, %s)
 """
 
 # SELECT QUERY
 music_log_by_session_select = """
-SELECT session_id, item_in_session, artist, song_length, song_title 
+SELECT artist, song_title, song_length
  FROM music_log_by_session WHERE session_id = 338 AND item_in_session = 4;
  """
 
 music_log_by_session_and_user_select = """
-SELECT session_id, user_id, item_in_session, artist, song_title, user_first_name, user_last_name  
+SELECT artist, song_title, item_in_session, user_first_name, user_last_name  
  FROM music_log_by_session_and_user WHERE user_id = 10 AND session_id = 182;
  """
 
